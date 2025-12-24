@@ -3,8 +3,9 @@ import CalendarHeader from "../Calendar/CalendarHeader";
 import CalendarGrid from "../Calendar/CalendarGrid";
 
 export default function CalendarPage() {
+    // State to hold the current date being viewed
   const [currentDate, setCurrentDate] = useState(new Date());
-
+  // Function to go to the previous month
   const goPrevMonth = () => {
     setCurrentDate(
       new Date(
@@ -14,7 +15,7 @@ export default function CalendarPage() {
       )
     );
   };
-
+    // Function to go to the next month
   const goNextMonth = () => {
     setCurrentDate(
       new Date(
@@ -24,7 +25,7 @@ export default function CalendarPage() {
       )
     );
   };
-
+  // Format the title of the calendar
   const title = currentDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
@@ -32,7 +33,6 @@ export default function CalendarPage() {
 
   return (
     <div style={{ width: 720, margin: "24px auto" }}>
-      {/* 月份切换 */}
       <div
         style={{
           display: "flex",
@@ -45,11 +45,7 @@ export default function CalendarPage() {
         <h2 style={{ margin: 0 }}>{title}</h2>
         <button onClick={goNextMonth}>▶</button>
       </div>
-
-      {/* 星期标题 */}
       <CalendarHeader />
-
-      {/* 日历主体 */}
       <CalendarGrid date={currentDate} />
     </div>
   );
