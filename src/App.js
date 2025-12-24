@@ -1,5 +1,7 @@
+import CalendarPage from "./components/pages/CalendarPage";
+
 function App() {
-  return <div>SpringCalendar Frontend Running</div>;
+  return <CalendarPage />;
 }
 
 export default App;
