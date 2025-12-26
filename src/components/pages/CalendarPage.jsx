@@ -3,9 +3,10 @@ import CalendarHeader from "../Calendar/CalendarHeader";
 import CalendarGrid from "../Calendar/CalendarGrid";
 
 export default function CalendarPage() {
-    // State to hold the current date being viewed
+    // State for current displayed month and selected day
   const [currentDate, setCurrentDate] = useState(new Date());
-  // Function to go to the previous month
+  const [selectedDay, setSelectedDay] = useState(null);
+    // Navigate to previous month
   const goPrevMonth = () => {
     setCurrentDate(
       new Date(
@@ -14,8 +15,9 @@ export default function CalendarPage() {
         1
       )
     );
+    setSelectedDay(null);
   };
-    // Function to go to the next month
+    // Navigate to next month
   const goNextMonth = () => {
     setCurrentDate(
       new Date(
@@ -24,29 +26,80 @@ export default function CalendarPage() {
         1
       )
     );
+    setSelectedDay(null);
   };
-  // Format the title of the calendar
+    // Format title as "Month Year"
   const title = currentDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
   });
 
   return (
-    <div style={{ width: 720, margin: "24px auto" }}>
+    // Main calendar page container
+    <div
+      style={{
+        width: 820,
+        margin: "40px auto",
+        padding: 18,
+        borderRadius: 18,
+        background: "linear-gradient(135deg, #2ecc71, #1abc9c)",
+        boxShadow: "0 30px 60px rgba(0,0,0,0.18)",
+      }}
+    >
       <div
         style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: 12,
+          background: "#ffffff",
+          borderRadius: 14,
+          padding: 18,
         }}
       >
-        <button onClick={goPrevMonth}>◀</button>
-        <h2 style={{ margin: 0 }}>{title}</h2>
-        <button onClick={goNextMonth}>▶</button>
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: 14,
+          }}
+        >
+          <button style={navBtn} onClick={goPrevMonth}>◀</button>
+
+          <h2
+            style={{
+              margin: 0,
+              fontSize: 22,
+              fontWeight: 800,
+              color: "#fff",
+              background: "linear-gradient(135deg, #2ecc71, #1abc9c)",
+              padding: "4px 16px",
+              borderRadius: 12,
+            }}
+          >
+            {title}
+          </h2>
+
+          <button style={navBtn} onClick={goNextMonth}>▶</button>
+        </div>
+
+        <CalendarHeader />
+        <CalendarGrid
+          date={currentDate}
+          selectedDay={selectedDay}
+          onSelectDay={setSelectedDay}
+        />
       </div>
-      <CalendarHeader />
-      <CalendarGrid date={currentDate} />
     </div>
   );
 }
+    // Styles for navigation buttons
+const navBtn = {
+  border: "none",
+  background: "linear-gradient(135deg, #2ecc71, #1abc9c)",
+  color: "#fff",
+  width: 36,
+  height: 36,
+  borderRadius: "50%",
+  cursor: "pointer",
+  fontSize: 14,
+  boxShadow: "0 6px 12px rgba(0,0,0,0.25)",
+};

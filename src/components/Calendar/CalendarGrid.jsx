@@ -1,37 +1,42 @@
 import CalendarCell from "./CalendarCell";
 
 export default function CalendarGrid({ date }) {
-    // Calculate the necessary values for rendering the calendar grid
+  // Calculate year and month from the provided date
   const year = date.getFullYear();
   const month = date.getMonth();
-    // First day of the month (0 = Sunday, 1 = Monday, etc.)
+  // Determine the first day of the month and total days in the month
   const firstDayOfMonth = new Date(year, month, 1).getDay();
   const daysInMonth = new Date(year, month + 1, 0).getDate();
 
   const cells = [];
-    // Fill in the cells for the calendar grid (6 weeks x 7 days = 42 cells)
+  // Generate 42 cells for the calendar grid (6 weeks)
   for (let i = 0; i < 42; i++) {
     const dayNumber = i - firstDayOfMonth + 1;
+    const day =
+      dayNumber > 0 && dayNumber <= daysInMonth ? dayNumber : null;
 
     cells.push(
       <CalendarCell
         key={i}
-        day={dayNumber > 0 && dayNumber <= daysInMonth ? dayNumber : null}
+        day={day}
+        date={date}   
       />
     );
   }
 
   return (
-  <div
-    style={{
-      display: "grid",
-      gridTemplateColumns: "repeat(7, 1fr)",
-      gap: 4,
-      background: "#ddd",
-      padding: 4,
-    }}
-  >
-    {cells}
-  </div>
-);
+    // Calendar grid container
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(7, 1fr)",
+        gap: 8,
+        background: "#eefaf4",
+        padding: 10,
+        borderRadius: 12,
+      }}
+    >
+      {cells}
+    </div>
+  );
 }
