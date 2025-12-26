@@ -4,6 +4,7 @@ import CalendarGrid from "../Calendar/CalendarGrid";
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDay, setSelectedDay] = useState(null);
 
   const goPrevMonth = () => {
     setCurrentDate(
@@ -13,6 +14,7 @@ export default function CalendarPage() {
         1
       )
     );
+    setSelectedDay(null);
   };
 
   const goNextMonth = () => {
@@ -23,6 +25,7 @@ export default function CalendarPage() {
         1
       )
     );
+    setSelectedDay(null);
   };
 
   const title = currentDate.toLocaleDateString("en-US", {
@@ -35,8 +38,8 @@ export default function CalendarPage() {
       style={{
         width: 820,
         margin: "40px auto",
-        padding: 26,
-        borderRadius: 22,
+        padding: 18,
+        borderRadius: 18,
         background: "linear-gradient(135deg, #2ecc71, #1abc9c)",
         boxShadow: "0 30px 60px rgba(0,0,0,0.18)",
       }}
@@ -44,43 +47,44 @@ export default function CalendarPage() {
       <div
         style={{
           background: "#ffffff",
-          borderRadius: 18,
-          padding: 26,
+          borderRadius: 14,
+          padding: 18,
         }}
       >
+        {/* Header */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            marginBottom: 22,
+            marginBottom: 14,
           }}
         >
-          <button style={navBtn} onClick={goPrevMonth}>
-            ◀
-          </button>
+          <button style={navBtn} onClick={goPrevMonth}>◀</button>
 
           <h2
             style={{
               margin: 0,
-              fontSize: 30,
-              fontWeight: 900,
-              background:
-                "linear-gradient(135deg, #2ecc71, #1abc9c)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
+              fontSize: 22,
+              fontWeight: 800,
+              color: "#fff",
+              background: "linear-gradient(135deg, #2ecc71, #1abc9c)",
+              padding: "4px 16px",
+              borderRadius: 12,
             }}
           >
             {title}
           </h2>
 
-          <button style={navBtn} onClick={goNextMonth}>
-            ▶
-          </button>
+          <button style={navBtn} onClick={goNextMonth}>▶</button>
         </div>
 
         <CalendarHeader />
-        <CalendarGrid date={currentDate} />
+        <CalendarGrid
+          date={currentDate}
+          selectedDay={selectedDay}
+          onSelectDay={setSelectedDay}
+        />
       </div>
     </div>
   );
@@ -90,10 +94,10 @@ const navBtn = {
   border: "none",
   background: "linear-gradient(135deg, #2ecc71, #1abc9c)",
   color: "#fff",
-  width: 42,
-  height: 42,
+  width: 36,
+  height: 36,
   borderRadius: "50%",
   cursor: "pointer",
-  fontSize: 16,
-  boxShadow: "0 8px 16px rgba(0,0,0,0.25)",
+  fontSize: 14,
+  boxShadow: "0 6px 12px rgba(0,0,0,0.25)",
 };

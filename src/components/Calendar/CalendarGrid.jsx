@@ -11,15 +11,14 @@ export default function CalendarGrid({ date }) {
 
   for (let i = 0; i < 42; i++) {
     const dayNumber = i - firstDayOfMonth + 1;
+    const day =
+      dayNumber > 0 && dayNumber <= daysInMonth ? dayNumber : null;
 
     cells.push(
       <CalendarCell
         key={i}
-        day={
-          dayNumber > 0 && dayNumber <= daysInMonth
-            ? dayNumber
-            : null
-        }
+        day={day}
+        date={date}   // ✅ 关键：传当前月份的 date
       />
     );
   }
@@ -29,10 +28,10 @@ export default function CalendarGrid({ date }) {
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(7, 1fr)",
-        gap: 12,
+        gap: 8,
         background: "#eefaf4",
-        padding: 16,
-        borderRadius: 16,
+        padding: 10,
+        borderRadius: 12,
       }}
     >
       {cells}
