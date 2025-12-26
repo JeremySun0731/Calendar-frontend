@@ -3,9 +3,10 @@ import CalendarHeader from "../Calendar/CalendarHeader";
 import CalendarGrid from "../Calendar/CalendarGrid";
 
 export default function CalendarPage() {
+    // State for current displayed month and selected day
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDay, setSelectedDay] = useState(null);
-
+    // Navigate to previous month
   const goPrevMonth = () => {
     setCurrentDate(
       new Date(
@@ -16,7 +17,7 @@ export default function CalendarPage() {
     );
     setSelectedDay(null);
   };
-
+    // Navigate to next month
   const goNextMonth = () => {
     setCurrentDate(
       new Date(
@@ -27,13 +28,14 @@ export default function CalendarPage() {
     );
     setSelectedDay(null);
   };
-
+    // Format title as "Month Year"
   const title = currentDate.toLocaleDateString("en-US", {
     year: "numeric",
     month: "long",
   });
 
   return (
+    // Main calendar page container
     <div
       style={{
         width: 820,
@@ -89,7 +91,7 @@ export default function CalendarPage() {
     </div>
   );
 }
-
+    // Styles for navigation buttons
 const navBtn = {
   border: "none",
   background: "linear-gradient(135deg, #2ecc71, #1abc9c)",

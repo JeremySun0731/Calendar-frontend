@@ -1,7 +1,9 @@
 export default function CalendarHeader() {
+    // Days of the week labels
   const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
+    // Days of the week header
     <div
       style={{
         display: "grid",
