@@ -1,55 +1,36 @@
-export default function CalendarCell({ day, date, onClick }) {
-  const today = new Date();
-
-  // Check if this cell represents today
-  const isToday =
-    day &&
-    date &&
-    today.getFullYear() === date.getFullYear() &&
-    today.getMonth() === date.getMonth() &&
-    today.getDate() === day;
+export default function CalendarCell({ day }) {
+  const isEmpty = day === null;
 
   return (
-    // Calendar cell div
     <div
-      onClick={() => {
-        if (!day) return;
-        if (typeof onClick === "function") onClick(day);
-      }}
       style={{
-        height: 78,
-        borderRadius: 12,
+        height: 72,
+        borderRadius: 14,
+        background: isEmpty ? "#f3fbf6" : "#ffffff",
+        border: "1px solid #dfeee6",
         padding: 8,
-        boxSizing: "border-box",
-        
-        background: isToday
-          ? "linear-gradient(135deg, #2ecc71, #1abc9c)"
-          : day
-          ? "#ffffff"
-          : "#dff3ea",
-
-        color: isToday ? "#ffffff" : "#2c3e50",
-
-        
-        border: "none",
-
-        boxShadow: day ? "0 6px 14px rgba(0,0,0,0.08)" : "none",
-        cursor: day ? "pointer" : "default",
-        transition: "transform 0.18s ease, box-shadow 0.18s ease",
+        fontWeight: 600,
+        color: isEmpty ? "transparent" : "#1e2d24",
+        boxShadow: isEmpty
+          ? "none"
+          : "0 4px 10px rgba(0,0,0,0.05)",
+        transition: "all 0.2s ease",
+        cursor: isEmpty ? "default" : "pointer",
       }}
-      // Hover effects
       onMouseEnter={(e) => {
-        if (!day) return;
-        e.currentTarget.style.transform = "translateY(-6px)";
-        e.currentTarget.style.boxShadow = "0 14px 28px rgba(0,0,0,0.18)";
+        if (!isEmpty) {
+          e.currentTarget.style.transform = "translateY(-4px)";
+          e.currentTarget.style.boxShadow =
+            "0 10px 20px rgba(46, 204, 113, 0.25)";
+        }
       }}
-      // Mouse leave effects
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = "translateY(0)";
-        e.currentTarget.style.boxShadow = day ? "0 6px 14px rgba(0,0,0,0.08)" : "none";
+        e.currentTarget.style.boxShadow =
+          "0 4px 10px rgba(0,0,0,0.05)";
       }}
     >
-      <div style={{ fontSize: 15, fontWeight: 700 }}>{day}</div>
+      {day}
     </div>
   );
 }
