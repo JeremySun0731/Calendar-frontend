@@ -1,7 +1,8 @@
 export default function CalendarCell({ day }) {
   const isEmpty = day === null;
-
+  // Render individual calendar cell
   return (
+    // Calendar cell container
     <div
       style={{
         height: 72,
@@ -17,6 +18,7 @@ export default function CalendarCell({ day }) {
         transition: "all 0.2s ease",
         cursor: isEmpty ? "default" : "pointer",
       }}
+      // Hover effect
       onMouseEnter={(e) => {
         if (!isEmpty) {
           e.currentTarget.style.transform = "translateY(-4px)";

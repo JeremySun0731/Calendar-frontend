@@ -3,8 +3,9 @@ import CalendarHeader from "../components/Calendar/CalendarHeader";
 import CalendarGrid from "../components/Calendar/CalendarGrid";
 
 export default function CalendarPage() {
+  // State to track the current displayed month
   const [currentDate, setCurrentDate] = useState(new Date());
-
+  // Function to go to the previous month
   const goPrevMonth = () => {
     setCurrentDate(
       new Date(
@@ -14,7 +15,7 @@ export default function CalendarPage() {
       )
     );
   };
-
+  // Function to go to the next month
   const goNextMonth = () => {
     setCurrentDate(
       new Date(
@@ -31,6 +32,7 @@ export default function CalendarPage() {
   });
 
   return (
+    // Main container
     <div
       style={{
         width: 760,
@@ -81,7 +83,7 @@ export default function CalendarPage() {
   );
 }
 
-/* 绿色圆形箭头按钮 */
+// Reusable arrow button component
 function ArrowButton({ children, onClick }) {
   return (
     <button
