@@ -1,4 +1,4 @@
-import CalendarPage from "./components/pages/CalendarPage";
+import CalendarPage from "./pages/CalendarPage";
 
 function App() {
   return <CalendarPage />;

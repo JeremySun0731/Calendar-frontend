@@ -1,20 +1,17 @@
 export default function CalendarHeader() {
-    // Days of the week labels
-  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-
-  return (
     // Days of the week header
+  const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    // Render the header
+  return (
     <div
       style={{
         display: "grid",
         gridTemplateColumns: "repeat(7, 1fr)",
         gap: 10,
         textAlign: "center",
-        fontWeight: 700,
-        color: "#2d7a46",
-        paddingBottom: 12,
-        borderBottom: "2px solid #e2f4ea",
-        marginBottom: 16,
+        fontWeight: 600,
+        color: "#2e7d32",
+        marginBottom: 8,
       }}
     >
       {days.map((day) => (
