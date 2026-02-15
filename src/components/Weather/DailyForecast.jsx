@@ -1,27 +1,37 @@
 export default function DailyForecast({ data }) {
-    return (
-        // Daily forecast information card
-        <div style={cardStyle}>
-            <h2>📅 Daily Forecast</h2>
-            {data.map((day, index) => (
-                <div key={index} style={dayStyle}>
-                    <p><strong>{day.date}</strong></p>
-                    <p>High: {day.high}°C, Low: {day.low}°C</p>
-                    <p>Condition: {day.condition}</p>
-                </div>
-            ))}
+  return (
+    <div style={cardStyle}>
+      <h2>📅 Daily Forecast</h2>
+      {data.map((day, index) => (
+        <div key={index} style={dayStyle}>
+          <div style={dateStyle}>{day.date}</div>
+          <div style={tempStyle}>
+            <span>High {day.high}°C</span>
+            <span>Low {day.low}°C</span>
+          </div>
+          <div style={conditionStyle}>{day.condition}</div>
         </div>
-    );
+      ))}
+    </div>
+  );
 }
-// Common card style
-const cardStyle = {
-    background: "#fff",
-    borderRadius: 16,
-    padding: 16, 
-    marginBottom: 16
+
+const dayStyle = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 8,
+  padding: "8px 0",
 };
-const row = {
+
+const dateStyle = {
+  fontWeight: 600,
+};
+
+const tempStyle = {
   display: "flex",
   justifyContent: "space-between",
-  padding: "8px 0",
+};
+
+const conditionStyle = {
+  opacity: 0.8,
 };

@@ -1,5 +1,6 @@
 export default function TopBar(){
     return (
+        // Top navigation bar
         <div
             style={{
                 height: 60,

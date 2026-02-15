@@ -5,7 +5,9 @@ export default function HourlyForecast({ data }) {
             <h2>🕒 Hourly Forecast</h2>
             {data.map((hour, index) => (
                 <div key={index} style={hourCard}>
-                    <time style="">{hour.time}</time>
+                    <time style={timeStyle}>{hour.time}</time>
+                    <span style={tempStyle}>{hour.temp}</span>
+                    <span style={conditionStyle}>{hour.condition}</span>
                 </div>
             ))}
         </div>
