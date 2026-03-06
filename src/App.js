@@ -1,51 +1,28 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import SideBar from "./components/layout/SideBar";
 import CalendarPage from "./pages/CalendarPage";
 
-export default function App() {
-  // State for current page and sidebar width
-  const [currentPage, setCurrentPage] = useState("calendar");
-  const [sidebarWidth, setSidebarWidth] = useState(220);
-  // Function to render the selected page
-  const renderPage = () => {
-    switch (currentPage) {
-      case "calendar":
-        return <CalendarPage />;
-      case "weather":
-        return <div>Weather Page (Coming Soon)</div>;
-      case "extreme":
-        return <div>Extreme Weather Page</div>;
-      case "tips":
-        return <div>Safety Tips Page</div>;
-      default:
-        return null;
-    }
-  };
-  // Main layout
+function Layout() {
   return (
-    <div
-      style={{
-        display: "flex",
-        height: "100vh",
-      }}
-    >
-      <SideBar
-        width={sidebarWidth}
-        onResize={setSidebarWidth}
-        current={currentPage}
-        onSelect={setCurrentPage}
-      />
+    <div className="flex h-screen">
+      <SideBar />
 
-      <div
-        style={{
-          flex: 1,
-          padding: 24,
-          overflow: "auto",
-          background: "#f8fdf9",
-        }}
-      >
-        {renderPage()}
+      <div className="flex-1 p-6 overflow-auto bg-[#f8fdf9]">
+        <Routes>
+          <Route path="/" element={<CalendarPage />} />
+          <Route path="/weather" element={<div>Weather Page</div>} />
+          <Route path="/extreme" element={<div>Extreme Weather Page</div>} />
+          <Route path="/tips" element={<div>Safety Tips Page</div>} />
+        </Routes>
       </div>
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Layout />
+    </BrowserRouter>
   );
 }
