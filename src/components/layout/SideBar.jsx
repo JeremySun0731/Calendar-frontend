@@ -1,23 +1,27 @@
-export default function SideBar({ width, onResize, current, onSelect }) {
+import { Link, useLocation } from "react-router-dom";
+import { Calendar, CloudSun, AlertTriangle, Shield } from "lucide-react";
+
+export default function SideBar({ width, onResize }) {
+  const location = useLocation();
+
   const items = [
-    { key: "calendar", label: "📅 Calendar" },
-    { key: "weather", label: "🌦 Weather" },
-    { key: "extreme", label: "⚠ Extreme Weather" },
-    { key: "tips", label: "🛡 Safety Tips" },
+    { path: "/", label: "Calendar", icon: Calendar, color: "blue" },
+    { path: "/weather", label: "Weather", icon: CloudSun, color: "sky" },
+    { path: "/extreme", label: "Extreme Weather", icon: AlertTriangle, color: "red" },
+    { path: "/tips", label: "Safety Tips", icon: Shield, color: "green" },
   ];
 
   const startDrag = (e) => {
-    // Initial positions
     const startX = e.clientX;
     const startWidth = width;
-    // Mouse move handler
+
     const onMouseMove = (moveEvent) => {
       const newWidth = startWidth + (moveEvent.clientX - startX);
       if (newWidth >= 160 && newWidth <= 360) {
         onResize(newWidth);
       }
     };
-    // Mouse up handler
+
     const onMouseUp = () => {
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
@@ -26,48 +30,66 @@ export default function SideBar({ width, onResize, current, onSelect }) {
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
   };
-  // Render sidebar
+
   return (
     <div style={{ display: "flex", height: "100%" }}>
       {/* Sidebar */}
       <div
-        style={{
-          width,
-          background: "linear-gradient(180deg, #2ecc71, #27ae60)",
-          color: "#fff",
-          padding: "24px 16px",
-          boxSizing: "border-box",
-        }}
+        style={{ width }}
+        className="bg-gradient-to-b from-emerald-500 to-green-600 text-white p-6 shadow-2xl"
       >
-        <h3 style={{ marginBottom: 24 }}>Function</h3>
+        <h3 className="mb-8 text-lg font-semibold tracking-wide">
+          Function
+        </h3>
 
-        {items.map((item) => (
-          <div
-            key={item.key}
-            onClick={() => onSelect(item.key)}
-            style={{
-              padding: "10px 12px",
-              marginBottom: 8,
-              borderRadius: 10,
-              cursor: "pointer",
-              background:
-                current === item.key
-                  ? "rgba(255,255,255,0.25)"
-                  : "transparent",
-            }}
-          >
-            {item.label}
-          </div>
-        ))}
+        <div className="space-y-4">
+          {items.map((item) => {
+            const Icon = item.icon;
+            const isActive = location.pathname === item.path;
+
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+               className={`
+                  flex items-center gap-3 px-4 py-3 rounded-xl
+                  transition-all duration-300 group
+                   transform
+              ${
+                 isActive
+                 ? "bg-white/10 shadow-md"
+                  : "hover:bg-white/5 hover:-translate-y-1 hover:shadow-lg"
+           }
+`}
+              >
+                <Icon
+                  size={22}
+                  className={`
+                    transition-all duration-500
+                    neon-${item.color}
+                    ${
+                      isActive
+                        ? "neon-active scale-110"
+                        : "group-hover:scale-110"
+                    }
+                  `}
+                />
+                <span className="font-medium tracking-wide">
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
       </div>
 
-        {/* Resize Handle */}
+      {/* Resize Handle */}
       <div
         onMouseDown={startDrag}
         style={{
           width: 6,
           cursor: "ew-resize",
-          background: "rgba(0,0,0,0)",
+          background: "transparent",
         }}
       />
     </div>
