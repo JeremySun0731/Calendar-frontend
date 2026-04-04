@@ -1,6 +1,9 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import SideBar from "./components/layout/SideBar";
 import CalendarPage from "./pages/CalendarPage";
+import LoginPage from "./pages/login/LoginPage";
+import RegisterPage from "./pages/login/RegisterPage";
+import ForgotPasswordPage from "./pages/login/ForgotPasswordPage";
 
 function Layout() {
   return (
@@ -22,7 +25,19 @@ function Layout() {
 export default function App() {
   return (
     <BrowserRouter>
-      <Layout />
+      <Routes>
+
+        {/* ⭐ 默认跳转到 login */}
+        <Route path="/" element={<Navigate to="/login" />} />
+
+        {/* 登录 & 注册 */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} /> 
+        {/* 主页面 */}
+        <Route path="/*" element={<Layout />} />
+
+      </Routes>
     </BrowserRouter>
   );
 }
